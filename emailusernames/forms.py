@@ -25,7 +25,6 @@ class EmailAuthenticationForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         self.helper = FormHelper()
         self.helper.layout = Layout(
-            '',
             'email',
             'password',
             FormActions(
