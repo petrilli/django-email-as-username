@@ -5,7 +5,9 @@ from django.contrib.admin.forms import AdminAuthenticationForm
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from emailusernames.utils import user_exists
-
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Submit, Field, Fieldset
+from crispy_forms.bootstrap import FormActions
 
 ERROR_MESSAGE = _("Please enter a correct email and password. ")
 ERROR_MESSAGE_RESTRICTED = _("You do not have permission to access the admin.")
@@ -21,6 +23,15 @@ class EmailAuthenticationForm(AuthenticationForm):
     message_inactive = ERROR_MESSAGE_INACTIVE
 
     def __init__(self, *args, **kwargs):
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            '',
+            'email',
+            'password',
+            FormActions(
+                Submit('submit', 'Login', css_class='btn btn-primary')
+            )
+        )
         super(EmailAuthenticationForm, self).__init__(*args, **kwargs)
         del self.fields['username']
 
